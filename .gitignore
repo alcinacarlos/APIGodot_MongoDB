@@ -1,0 +1,46 @@
+﻿# Archivos de Rider
+.idea/
+*.sln.iml
+
+# Archivos de compilación
+bin/
+obj/
+
+# Archivos de dependencias
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+
+# Configuración de usuario y temporales
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de Rider específicos
+.idea/
+*.sln.iml
+
+# Configuración de VSCode (si lo usas también)
+.vscode/
+
+# Logs y depuración
+*.log
+*.tlog/
+*.cache
+*.pdb
+
+# Archivos de publicación
+publish/
+
+# Configuración de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de entorno
+.env
+.env.*
+
+# Dependencias de NuGet
+.nuget/
