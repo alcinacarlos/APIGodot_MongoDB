@@ -1,4 +1,4 @@
-@APIGodot_HostAddress = http://localhost:5167
+@APIGodot_HostAddress = http://localhost:8080
 
 GET {{APIGodot_HostAddress}}/weatherforecast/
 Accept: application/json

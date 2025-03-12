@@ -7,17 +7,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Api_Godot_PSP.csproj", "./"]
-RUN dotnet restore "Api_Godot_PSP.csproj"
+COPY ["APIGodot.csproj", "./"]
+RUN dotnet restore "APIGodot.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "Api_Godot_PSP.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "APIGodot.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Api_Godot_PSP.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "APIGodot.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api_Godot_PSP.dll"]
+ENTRYPOINT ["dotnet", "APIGodot.dll"]
