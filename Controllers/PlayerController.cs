@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using APIGodot.Models;
+using MongoDB.Bson;
 
 namespace APIGodot.Controllers
 {
@@ -23,7 +24,7 @@ namespace APIGodot.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Player>> GetPlayer(long id)
+        public async Task<ActionResult<Player>> GetPlayer(string id)
         {
             var player = await _players.Find<Player>(player => player.Id == id).FirstOrDefaultAsync();
             if (player == null)
@@ -36,12 +37,13 @@ namespace APIGodot.Controllers
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
+            player.Id = ObjectId.GenerateNewId().ToString();
             await _players.InsertOneAsync(player);
             return CreatedAtAction("GetPlayer", new { id = player.Id }, player);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer(long id, Player player)
+        public async Task<IActionResult> PutPlayer(string id, Player player)
         {
             var result = await _players.ReplaceOneAsync(p => p.Id == id, player);
             if (result.MatchedCount == 0)
@@ -52,7 +54,7 @@ namespace APIGodot.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer(long id)
+        public async Task<IActionResult> DeletePlayer(string id)
         {
             var result = await _players.DeleteOneAsync(player => player.Id == id);
             if (result.DeletedCount == 0)
